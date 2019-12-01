@@ -1,0 +1,21 @@
+{% extends "posts//base.html" %}
+{% block content %} 
+  <article class="media content-section">
+    <img class="rounded-circle article-img" src = "{{ object.author.profile.image.url }} ">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">{{ object.author }}</a>
+          <!-- Filter the date for the right format. Must take a look at Django documentation -->
+          <small class="text -muted">{{ object.date_posted|date:"D d F y " }}</small>
+          {% if object.author == user %}
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+          </div>
+        {% endif %}
+        </div>
+        <img src="{{ post.cover.url }}" alt="{{post.caption}}">
+        <p> {{ post.caption }} </p>
+      </div>
+    </article>
+{% endblock content %}
