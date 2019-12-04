@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.urls import reverse
-
+from PIL import Image
 # Create your models here.
 
 
@@ -23,6 +23,16 @@ class Post(models.Model):
         # 'reverse()' will return full path as a string
         return reverse('post-detail', kwargs={'pk': self.pk})
 
+    def save(self, *args, **kwargs):
+        super(Post, self).save(*args, **kwargs)
+
+        img = Image.open(self.cover.path)
+        img.convert("RGB")
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.cover.path)
 
 class ListAdmin(admin.ModelAdmin):
     field = ('title', 'cover', 'caption', 'author')
