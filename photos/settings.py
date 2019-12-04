@@ -126,7 +126,6 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
-
 CRISPY_TEMPLATE_PACK = 'bootstrap4' # make Crispy to use bootstrap4
 LOGIN_REDIRECT_URL = 'home' # Make after the login, it redirects to blog homepage
 LOGIN_URL = 'login'
